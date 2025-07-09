@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5实现中国象棋游戏 - 站长素材</title>
+    <link href="css/zzsc.css" type="text/css" rel="stylesheet" />
+</head>
+<body onload="initBgMusic()">
+<div class="box" id="box">
+    <audio id="bgMusic" src="audio/bg.mp3" loop preload="auto"></audio>
+    <button id="playMusicBtn" onclick="playBgMusic()">播放背景音乐</button>
+	<div class="chess_left">
+		<canvas id="chess">对不起，您的浏览器不支持HTML5，请升级浏览器至IE9、firefox或者谷歌浏览器！</canvas>
+		<audio src="audio/click.wav" id="clickAudio" preload="auto"></audio>
+		<audio id="dropAudio" src="audio/落子.mp3" preload="auto"></audio>
+		<!--<audio src="audio/check.wav" id="checkAudio" preload="auto"></audio>-->
+		<audio src="audio/select.wav" id="selectAudio" preload="auto"></audio>
+		<div>
+			<div class="bn_box" id="bnBox">
+				<input type="button" name="offensivePlay" id="tyroPlay" value="新手水平" />
+				<input type="button" name="offensivePlay" id="superPlay" value="中级水平" />
+                <input type="button" name="button" id="" value="大师水平" disabled />
+				<!--
+			<input type="button" name="offensivePlay" id="offensivePlay" value="先手开始" />
+			<input type="button" name="defensivePlay" id="defensivePlay" value="后手开始" />
+			-->
+				<input type="button" name="regret" id="regretBn" value="悔棋" />
+				<input type="button" name="billBn" id="billBn" value="棋谱" class="bn_box" />
+				<input type="button" name="stypeBn" id="stypeBn" value="换肤" />
+			</div>
+		</div>
+	</div>
+	<div class="chess_right" id="chessRight">
+		<select name="billList" id="billList">
+		</select>
+		<ol id="billBox" class="bill_box">
+		</ol>
+	</div>
+	<div id="moveInfo" class="move_info"> </div>
+</div>
+<script src="js/common.js"></script> 
+<script src="js/play.js"></script> 
+<script src="js/AI.js"></script> 
+<script src="js/bill.js"></script> 
+<script src="js/gambit.js"></script>
+<div style="text-align:center;clear:both">
+<p>适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。</p>
+</div>
+</body>
+<script>
+    function initBgMusic() {
+        var bgMusic = document.getElementById("bgMusic");
+        bgMusic.volume = 1.0; // 设置为原声音量
+        
+        // 处理浏览器自动播放限制
+        var playPromise = bgMusic.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                // 自动播放被阻止，需要用户交互
+                document.addEventListener('click', function() {
+                    bgMusic.play();
+                }, { once: true });
+            });
+        }
+    }
+
+
+function playBgMusic() {
+    const bgMusic = document.getElementById('bgMusic');
+    bgMusic.play();
+}
+</script>
+</html>
